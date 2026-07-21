@@ -1,5 +1,4 @@
-Visit Pages at https://lord-drazzar.github.io/PASS/
-
+Visit Pages at https://elizabethpass.github.io/PASS/
 Google lead capture setup
 
 1. Open script.google.com and create a new Apps Script project.
