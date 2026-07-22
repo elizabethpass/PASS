@@ -41,7 +41,7 @@ populateStudentStageYears();
     const submitButtons = Array.from(form.querySelectorAll("button[type='submit']"));
     const loadedAtInput = document.getElementById("form-loaded-at");
     const endpoint = window.PASS_SITE_CONFIG && window.PASS_SITE_CONFIG.leadsEndpoint;
-    const TIDYCAL_URL = "https://tidycal.com/elizabethpass/discovery-call";
+    const CAL_URL = "https://bookingwithlibbypass.as.me/";
 
     if (loadedAtInput) {
         loadedAtInput.value = String(Date.now());
@@ -118,8 +118,6 @@ populateStudentStageYears();
                 body: JSON.stringify(payload)
             });
 
-            // With no-cors the response body is opaque and unreadable.
-            // A completed fetch without throwing means the request was sent.
             form.reset();
             if (loadedAtInput) {
                 loadedAtInput.value = String(Date.now());
@@ -127,7 +125,7 @@ populateStudentStageYears();
             populateStudentStageYears();
             setStatus("Thanks. Your inquiry has been sent.", false);
             if (isBookNow) {
-                window.open(TIDYCAL_URL, "_blank", "noopener,noreferrer");
+                window.open(CAL_URL, "_blank", "noopener,noreferrer");
             }
         } catch (error) {
             setStatus("Could not submit right now. Please try again.", true);
