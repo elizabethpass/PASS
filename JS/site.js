@@ -75,12 +75,14 @@ populateStudentStageYears();
 
         const formData = new FormData(form);
         const payload = {
+            formSource: "contactForm",
             parentName: (formData.get("parent-name") || "").toString().trim(),
             studentName: (formData.get("student-name") || "").toString().trim(),
             phoneNumber: (formData.get("phone-number") || "").toString().trim(),
             emailAddress: (formData.get("email-address") || "").toString().trim(),
             phone: (formData.get("phone-number") || "").toString().trim(),
             email: (formData.get("email-address") || "").toString().trim(),
+            message: (formData.get("message") || "").toString().trim(),
             studentStage: (formData.get("student-stage") || "").toString().trim(),
             referralSource: (formData.get("referral-source") || "").toString().trim(),
             website: (formData.get("website") || "").toString().trim(),
@@ -90,8 +92,8 @@ populateStudentStageYears();
             timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone || ""
         };
 
-        if (!payload.parentName || !payload.studentName || !payload.phoneNumber || !payload.emailAddress || !payload.studentStage) {
-            setStatus("Please complete parent name, student name, phone number, email address, and student stage.", true);
+        if (!payload.parentName || !payload.emailAddress) {
+            setStatus("Please complete parent name and email address.", true);
             return;
         }
 
@@ -100,7 +102,8 @@ populateStudentStageYears();
             return;
         }
 
-        if (!hasMinimumPhoneDigits(payload.phoneNumber, 10)) {
+        // Phone is optional for contact form
+        if (payload.phoneNumber && !hasMinimumPhoneDigits(payload.phoneNumber, 10)) {
             setStatus("Please enter a valid phone number with at least 10 digits.", true);
             return;
         }
@@ -123,7 +126,9 @@ populateStudentStageYears();
                 loadedAtInput.value = String(Date.now());
             }
             populateStudentStageYears();
-            setStatus("Thanks. Your inquiry has been sent.", false);
+            setStatus("Thanks! Your message has been sent.", false);
+
+            // If "Book Now" was clicked, open calendar in new tab
             if (isBookNow) {
                 window.open(CAL_URL, "_blank", "noopener,noreferrer");
             }
